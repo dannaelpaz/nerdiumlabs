@@ -1,47 +1,32 @@
+import ProductCard from './ProductCard';
 
-import React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import ProductCard from '@/components/ProductCard';
-
-const ProductList = ({ products, onAddToCart }) => {
-  if (!products || products.length === 0) {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center py-10"
-      >
-        <p className="text-2xl text-muted-foreground font-semibold">Nenhum produto encontrado.</p>
-        <p className="text-md text-muted-foreground">Tente ajustar seus filtros ou volte mais tarde!</p>
-      </motion.div>
-    );
+const produtos = [
+  {
+    id: 1,
+    nome: 'Forja Mística de Dados',
+    preco: 'R$ 89,90',
+    imagem: '/assets/forja.jpg'
+  },
+  {
+    id: 2,
+    nome: 'Torre de Dados com Dragão',
+    preco: 'R$ 149,90',
+    imagem: '/assets/torre.jpg'
+  },
+  {
+    id: 3,
+    nome: 'Separador Gandalf',
+    preco: 'R$ 49,90',
+    imagem: '/assets/gandalf.jpg'
   }
+];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
+export default function ProductList() {
   return (
-    <motion.div 
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-    >
-      <AnimatePresence>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
-        ))}
-      </AnimatePresence>
-    </motion.div>
+    <div className="grid md:grid-cols-3 gap-6">
+      {produtos.map(produto => (
+        <ProductCard key={produto.id} produto={produto} />
+      ))}
+    </div>
   );
-};
-
-export default ProductList;
-  
+}
